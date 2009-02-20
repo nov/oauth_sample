@@ -1,0 +1,16 @@
+<% form_for :consumer, :url => oauth_consumers_path do |f| %>
+  <dl class="clearfix">
+    <dt><%= f.label      :service_provider %></dt>
+    <dd><%= f.select     :service_provider, OauthConsumer.service_providers.keys, :selected => (params[:service_provider]) %></dd>
+    <dt><%= f.label      :consumer_key %></dt>
+    <dd><%= f.text_field :consumer_key %></dd>
+    <dt><%= f.label      :consumer_secret %></dt>
+    <dd><%= f.text_field :consumer_secret %></dd>
+    <dt><%= f.label      :scope %></dt>
+    <dd><%= f.text_field :scope %></dd>
+    <dt><%= f.label      :api_key %></dt>
+    <dd><%= f.text_field :api_key %></dd>
+  </dl>
+  <%= error_messages_for(:consumer) %>
+  <div class="submit"><%= f.submit 'register' %></div>
+<% end %>

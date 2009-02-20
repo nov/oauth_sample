@@ -1,0 +1,6 @@
+<dl class="clearfix">
+  <% OauthConsumer.service_providers.each do |service_provider, options| %>
+    <dt><%= options['name'] %></dt>
+    <dd><%= button_to "establish", oauth_start_url(:service_provider => service_provider) %></dd>
+  <% end %>
+</dl>

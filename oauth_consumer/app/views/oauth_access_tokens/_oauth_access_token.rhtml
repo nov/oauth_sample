@@ -1,0 +1,11 @@
+<div class="oauth_access_token">
+  <h3><%= oauth_access_token.oauth_consumer.service_provider_options['name'] %></h3>
+  <dl class="clearfix">
+    <dt>token</dt>
+    <dd><%= oauth_access_token.token %></dd>
+    <dt>secret</dt>
+    <dd><%= oauth_access_token.secret %></dd>
+    <dt>scope</dt>
+    <dd><%= oauth_access_token.oauth_consumer.scope %></dd>
+  </dl>
+</div>

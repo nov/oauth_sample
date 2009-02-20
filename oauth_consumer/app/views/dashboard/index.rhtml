@@ -1,0 +1,7 @@
+<h2>OAuth Consumers</h2>
+<%= render :partial => OauthConsumer.all %>
+<p class="create"><%= link_to 'new consumer', new_oauth_consumer_url %></p>
+
+<h2>OAuth Access Tokens</h2>
+<%= render :partial => current_user.oauth_access_tokens %>
+<p class="create"><%= link_to 'new access token', new_oauth_access_token_url %></p>
