@@ -76,3 +76,5 @@ Rails::Initializer.run do |config|
   config.active_record.timestamped_migrations = false
   config.gem "oauth"
 end
+
+require 'oauth_patches'

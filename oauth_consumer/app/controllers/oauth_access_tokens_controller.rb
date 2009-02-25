@@ -14,14 +14,8 @@ class OauthAccessTokensController < ApplicationController
 
   def create
     authorized_token = params[:oauth_token] || session[:request_token]
-    begin
-      new_access_token = oauth_consumer.get_access_token(authorized_token, session[:request_token_secret])
-      store_access_token(new_access_token)
-    rescue
-      logger.error("ERROR :: Couldn't establish access_token")
-      logger.error("  token => #{authorized_token}")
-      logger.error("  secret => #{session[:request_token_secret]}")
-    end
+    new_access_token = oauth_consumer.get_access_token(authorized_token, session[:request_token_secret])
+    store_access_token(new_access_token)
     clear_request_token
     redirect_to_dashboard
   end

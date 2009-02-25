@@ -30,9 +30,8 @@ class OauthConsumer < ActiveRecord::Base
   end
 
   def get_access_token(token, secret)
-    options[:api_key] = api_key unless api_key.blank?
     request_token = OAuth::RequestToken.new(consumer, token, secret)
-    request_token.get_access_token(token_options)
+    request_token.get_access_token({}, token_options)
   end
 
   private
