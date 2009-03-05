@@ -70,7 +70,7 @@ class OauthConsumer < ActiveRecord::Base
   end
 
   def api_key_is_required?
-    service_provider == 'iknow'
+    service_provider == 'smartfm'
   end
 
 end

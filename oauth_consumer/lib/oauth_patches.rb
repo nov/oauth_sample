@@ -1,5 +1,5 @@
 # Hacks
-# Support api_key in get_access_token request of iKnow! API
+# Support params in get_access_token request for smart.fm API's api_key
 class OAuth::RequestToken
   def get_access_token_with_args(options = {}, *args)
     access_token_url = consumer.access_token_url? ? consumer.access_token_url : consumer.access_token_path
