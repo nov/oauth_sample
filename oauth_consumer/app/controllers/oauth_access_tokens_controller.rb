@@ -42,12 +42,10 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def request_token
-    unless @request_token
-      @request_token = oauth_consumer.get_request_token
-      session[:request_token] = @request_token.token
-      session[:request_token_secret] = @request_token.secret
-    end
-    @request_token
+    request_token = oauth_consumer.get_request_token
+    session[:request_token] = request_token.token
+    session[:request_token_secret] = request_token.secret
+    request_token
   end
 
   def clear_request_token
@@ -56,7 +54,7 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def access_token
-    @access_token ||= current_user.oauth_access_tokens.find_by_oauth_consumer_id(oauth_consumer)
+    current_user.oauth_access_tokens.find_by_oauth_consumer_id(oauth_consumer)
   end
 
   def store_access_token(access_token)
@@ -69,7 +67,7 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def oauth_consumer
-    @oauth_consumer ||= OauthConsumer.find_by_service_provider(oauth_service_provider)
+    OauthConsumer.find_by_service_provider(oauth_service_provider)
   end
 
   def oauth_service_provider
