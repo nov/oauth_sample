@@ -1,5 +1,5 @@
 class OauthConsumersController < ApplicationController
-  before_filter :require_authenticated
+  before_filter :require_authentication
 
   def new
     @consumer = OauthConsumer.new

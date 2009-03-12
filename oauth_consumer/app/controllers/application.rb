@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
 
-  def require_authenticated
+  def require_authentication
     unless authenticated?
       redirect_to root_url
     end

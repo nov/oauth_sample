@@ -1,5 +1,5 @@
 class OauthAccessTokensController < ApplicationController
-  before_filter :require_authenticated
+  before_filter :require_authentication
   before_filter :require_oauth_consumer
 
   def new

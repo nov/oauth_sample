@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :require_authenticated
+  before_filter :require_authentication
 
   def index
   end
