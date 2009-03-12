@@ -8,10 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
-
-  map.with_options(:controller => 'dashboard') do |m|
-    m.dashboard 'dashboard', :action => 'index'
-  end
+  
+  map.dashboard 'dashboard', :controller => 'dashboard'
 
   map.with_options(:controller => 'oauth_access_tokens') do |m|
     m.oauth_start 'oauth/:service_provider', :action => 'new'
