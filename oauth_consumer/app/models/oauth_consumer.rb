@@ -1,18 +1,6 @@
 class OauthConsumer < ActiveRecord::Base
   has_many :oauth_access_tokens
 
-  @@service_providers = YAML.load_file("#{RAILS_ROOT}/config/service_providers.yml")
-
-  def self.service_providers
-    @@service_providers
-  end
-  def service_providers
-    self.class.service_providers
-  end
-  def service_provider_options
-    service_providers[self.service_provider]
-  end
-
   # NOTE:
   # Service providers using only RSA-SHA1 may not generate consumer_secret ??
   # ref.) http://devlog.agektmr.com/ja/archives/174
@@ -32,6 +20,18 @@ class OauthConsumer < ActiveRecord::Base
   def get_access_token(token, secret)
     request_token = OAuth::RequestToken.new(consumer, token, secret)
     request_token.get_access_token({}, token_options)
+  end
+
+  def self.service_providers
+    @service_providers ||= YAML.load_file("#{RAILS_ROOT}/config/service_providers.yml")
+  end
+
+  def service_providers
+    self.class.service_providers
+  end
+
+  def service_provider_options
+    service_providers[self.service_provider]
   end
 
   private

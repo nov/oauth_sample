@@ -1,0 +1,17 @@
+<% if authenticated? %>
+<div class="session_form">
+  <% form_tag session_path(:id => 'current'), :method => :delete do %>
+  <%= submit_tag 'sign out' %>
+  <% end %>
+</div>
+<div class="current_user">
+  <strong><%= current_user.identifier %></strong>
+</div>
+<% else %>
+<div class="session_form">
+  <% form_tag sessions_path do %>
+  <%= text_field_tag :identifier, nil, :placeholder => 'username' %>
+  <%= submit_tag 'sign in' %>
+  <% end %>
+</div>
+<% end %>

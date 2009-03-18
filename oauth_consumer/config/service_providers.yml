@@ -12,9 +12,9 @@ smartfm:
   authorize_url: http://smart.fm/oauth/authorize
   access_token_url: http://api.smart.fm/oauth/access_token
 
-smartfm_dev:
-  name: smart.fm API dev
-  site: http://api.dev.iknow.co.jp
-  request_token_url: http://api.dev.iknow.co.jp/oauth/request_token
-  authorize_url: http://dev.smart.fm/oauth/authorize
-  access_token_url: http://api.dev.iknow.co.jp/oauth/access_token
+twitter:
+  name: twitter API
+  site: http://twitter.com
+  request_token_url: http://twitter.com/oauth/request_token
+  authorize_url: http://twitter.com/oauth/authorize
+  access_token_url: http://twitter.com/oauth/access_token
