@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>OAuth service provider sample</title>
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <%= render :partial => 'sessions/form' %>
+        <h1 class="title"><%= link_to 'OAuth service provider sample', root_url %></h1>
+      </div>
+      <div id="content">
+        <% if flash[:notice] %><p class="notice"><%= flash[:notice] %><% end %>
+        <%= yield %>
+      </div>
+      <div id="footer" class="clearfix">
+        <p class="copyright">&copy; <%= link_to 'nov', 'http://matake.jp' %></p>
+        <p class="powered_by">
+          <%= link_to image_tag('rails.png', :alt => "Ruby on Rails", :title => "Ruby on Rails"), "http://rubyonrails.org/" %>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
