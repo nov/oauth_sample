@@ -14,7 +14,11 @@ class OauthAccessTokensController < ApplicationController
 
   def create
     authorized_token = params[:oauth_token] || session[:request_token]
-    new_access_token = oauth_consumer.get_access_token(authorized_token, session[:request_token_secret])
+    new_access_token = oauth_consumer.get_access_token(
+      authorized_token,
+      session[:request_token_secret],
+      params[:oauth_verifier]
+    )
     store_access_token(new_access_token)
     clear_request_token
     redirect_to_dashboard
@@ -34,7 +38,12 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def authorize_url
-    request_token.authorize_url + "&oauth_callback=#{callback_url}"
+    if request_token.callback_confirmed? && OAUTH_VERSION == "1.0a"
+      # Serveice Provider is supporting OAuth 1.0a
+      request_token.authorize_url
+    else
+      request_token.authorize_url + "&oauth_callback=#{callback_url}"
+    end
   end
 
   def callback_url
@@ -42,7 +51,12 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def request_token
-    request_token = oauth_consumer.get_request_token
+    request_token = case OAUTH_VERSION
+    when "1.0a"
+      oauth_consumer.get_request_token(:oauth_callback => callback_url)
+    else
+      oauth_consumer.get_request_token
+    end
     session[:request_token] = request_token.token
     session[:request_token_secret] = request_token.secret
     request_token

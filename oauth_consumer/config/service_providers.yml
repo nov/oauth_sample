@@ -18,3 +18,10 @@ twitter:
   request_token_url: http://twitter.com/oauth/request_token
   authorize_url: http://twitter.com/oauth/authorize
   access_token_url: http://twitter.com/oauth/access_token
+
+my_sample:
+  name: my sample
+  site: http://localhost:3001
+  request_token_url: http://localhost:3001/oauth/request_token
+  authorize_url: http://localhost:3001/oauth/authorize
+  access_token_url: http://localhost:3001/oauth/access_token

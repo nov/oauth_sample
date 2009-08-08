@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 3) do
     t.string   "consumer_key"
     t.string   "consumer_secret"
     t.string   "scope"
-    t.string   "api_key"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

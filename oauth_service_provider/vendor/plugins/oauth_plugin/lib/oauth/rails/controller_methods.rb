@@ -96,7 +96,7 @@ module OAuth
       def verify_oauth_signature
         begin
           valid = ClientApplication.verify_request(request) do |token|
-            self.current_token = ClientApplication.find_token(token)
+            self.current_token = ClientApplication.find_token(token.token)
             logger.info "self=#{self.class.to_s}"
             logger.info "token=#{self.current_token}"
             # return the token secret and the consumer secret

@@ -9,18 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090312023002) do
-
-  create_table "activities", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "verb"
-    t.string   "object"
-    t.string   "context"
-    t.string   "location"
-    t.string   "acted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20090312021201) do
 
   create_table "client_applications", :force => true do |t|
     t.string   "name"

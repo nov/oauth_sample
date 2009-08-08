@@ -1,25 +1,24 @@
 class OauthConsumer < ActiveRecord::Base
   has_many :oauth_access_tokens
 
-  # NOTE:
-  # Service providers using only RSA-SHA1 may not generate consumer_secret ??
+  # TODO: RSA-SHA1 support
+  # Service providers using only RSA-SHA1 does not use consumer_secret.
   # ref.) http://devlog.agektmr.com/ja/archives/174
   validates_presence_of :service_provider, :consumer_key, :consumer_secret, :message => 'is required'
   validates_presence_of :scope, :if => :scope_is_required?, :message => 'is required'
-  validates_presence_of :api_key, :if => :api_key_is_required?, :message => 'is required'
   validates_uniqueness_of :service_provider, :message => 'is already registered'
 
   def validate
     errors.add(:service_provider, "is not supported") unless service_provider_is_supported?
   end
 
-  def get_request_token
-    consumer.get_request_token({}, token_options)
+  def get_request_token(options = {})
+    consumer.get_request_token(options, token_options)
   end
 
-  def get_access_token(token, secret)
+  def get_access_token(token, secret, verifier = "")
     request_token = OAuth::RequestToken.new(consumer, token, secret)
-    request_token.get_access_token({}, token_options)
+    request_token.get_access_token(:oauth_verifier => verifier)
   end
 
   def self.service_providers
@@ -41,7 +40,7 @@ class OauthConsumer < ActiveRecord::Base
   end
 
   def consumer_options
-    options = {
+    {
       :site              => service_provider_options['site'],
       :request_token_url => service_provider_options['request_token_url'],
       :authorize_url     => service_provider_options['authorize_url'],
@@ -50,15 +49,11 @@ class OauthConsumer < ActiveRecord::Base
       :scheme            => service_provider_options['scheme'],
       :signature_method  => service_provider_options['signature_method'],
       :http_method       => service_provider_options['http_method']
-    }
-    options.reject! { |key, value| value.blank? }
+    }.reject! { |key, value| value.blank? }
   end
 
   def token_options
-    options = {}
-    options[:scope] = scope unless scope.blank?
-    options[:api_key] = api_key unless api_key.blank?
-    options
+    scope.blank? ? {} : {:scope => scope}
   end
 
   def service_provider_is_supported?
@@ -67,10 +62,6 @@ class OauthConsumer < ActiveRecord::Base
 
   def scope_is_required?
     service_provider == 'google'
-  end
-
-  def api_key_is_required?
-    service_provider == 'smartfm'
   end
 
 end

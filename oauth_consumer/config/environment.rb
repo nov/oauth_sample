@@ -77,4 +77,4 @@ Rails::Initializer.run do |config|
   config.gem "oauth"
 end
 
-require 'oauth_patches'
+OAUTH_VERSION = "1.0a"
