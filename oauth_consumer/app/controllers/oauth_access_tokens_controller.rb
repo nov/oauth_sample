@@ -4,10 +4,7 @@ class OauthAccessTokensController < ApplicationController
 
   def new
     if oauth_service_provider
-      if access_token
-        flash[:notice] = "it's already established"
-        redirect_to_dashboard and return
-      end
+      access_token.destroy if access_token
       redirect_to authorize_url
     end
   end
@@ -38,7 +35,7 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def authorize_url
-    if request_token.callback_confirmed? && OAUTH_VERSION == "1.0a"
+    if request_token.callback_confirmed?
       # Serveice Provider is supporting OAuth 1.0a
       request_token.authorize_url
     else
@@ -51,12 +48,7 @@ class OauthAccessTokensController < ApplicationController
   end
 
   def request_token
-    request_token = case OAUTH_VERSION
-    when "1.0a"
-      oauth_consumer.get_request_token(:oauth_callback => callback_url)
-    else
-      oauth_consumer.get_request_token
-    end
+    request_token = oauth_consumer.get_request_token(:oauth_callback => callback_url)
     session[:request_token] = request_token.token
     session[:request_token_secret] = request_token.secret
     request_token

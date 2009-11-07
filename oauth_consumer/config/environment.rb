@@ -76,5 +76,3 @@ Rails::Initializer.run do |config|
   config.active_record.timestamped_migrations = false
   config.gem "oauth"
 end
-
-OAUTH_VERSION = "1.0a"
